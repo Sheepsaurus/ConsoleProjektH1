@@ -7,11 +7,8 @@ namespace ConsoleProjektH1
 	{
 		private static void Main(string[] args)
 		{
-			Functions functions = new Functions();
-			List<Person> people = new List<Person>();
-			functions.ReadFile(people);
-			
-			Functionality(functions, people);	
+			Program prog = new Program();
+			prog.Run();
 		}
 		
 		/// <summary>
@@ -19,20 +16,21 @@ namespace ConsoleProjektH1
 		/// </summary>
 		/// <param name="functions"></param>
 		/// <param name="people"></param>
-		private static void Functionality(Functions functions, List<Person> people)
+		private void Run()
 		{
 			try
 			{
+				Functions functions = new Functions();
+				functions.ReadFile();
 				Console.WriteLine("Hello, welcome to this list of people - Type \"help\" to " +
 				                  "receive a list of commands");
-
 				while (true)
 				{
 					Console.Write(":>");
 					List<string> inputList = functions.FilterInput(Console.ReadLine().ToLower());
 					try
 					{
-						functions.HandleCommands(people, inputList, functions);
+						functions.HandleCommands(inputList, functions);
 					}
 					catch (Exception e)
 					{

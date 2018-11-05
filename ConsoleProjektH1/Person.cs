@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ConsoleProjektH1
 {
     /// <summary>
@@ -5,7 +7,9 @@ namespace ConsoleProjektH1
     /// </summary>
     public class Person
     {
-        public string Name;
+		public static List<Person> people = new List<Person>();
+
+		public string Name;
         public int Age;
         public double Balance;
         
