@@ -14,7 +14,7 @@ namespace ConsoleProjektH1
 		private void ShowAll()
 		{
 			int i = 20;
-			Console.WriteLine("Name".PadRight(i) + "Age".PadRight(i-2) + 
+			Console.WriteLine("Name".PadRight(i) + "Age".PadRight(i) + 
 			                  "Balance".PadRight(i));
 			
 			foreach (var person in people)
@@ -22,9 +22,11 @@ namespace ConsoleProjektH1
 				if (person.Name.Length > i)
 					i = person.Name.Length + 1;
 
-				Console.WriteLine(person.Name.PadRight(i) + person.Age.ToString().PadRight(i-2) + 
+				Console.WriteLine(person.Name.PadRight(i) + person.Age.ToString().PadRight(i) + 
 				                  person.Balance.ToString().PadRight(i));
 			}
+
+			Console.Write(Environment.NewLine);
 		}
 
 		/// <summary>
@@ -38,7 +40,7 @@ namespace ConsoleProjektH1
 		{
 			people.Add(new Person(name, age, balance));
 			AppendNames();
-			Console.WriteLine("Person added\n");
+			Console.WriteLine("Person added");
 		}
 
 		/// <summary>
@@ -56,7 +58,7 @@ namespace ConsoleProjektH1
 				}
 			}
 			AppendNames();
-			Console.WriteLine("Person deleted\n");
+			Console.WriteLine("Person deleted");
 		}
 		
 		/// <summary>
@@ -75,7 +77,7 @@ namespace ConsoleProjektH1
 				}
 			}
 			AppendNames();			
-			Console.WriteLine("Person changed\n");
+			Console.WriteLine("Person changed");
 		}
 
 		/// <summary>
@@ -94,7 +96,7 @@ namespace ConsoleProjektH1
 				}
 			}
 			AppendNames();			
-			Console.WriteLine("Age changed\n");
+			Console.WriteLine("Age changed");
 		}
 
 		/// <summary>
@@ -113,7 +115,7 @@ namespace ConsoleProjektH1
 				}
 			}
 			AppendNames();			
-			Console.WriteLine("Balance changed\n");
+			Console.WriteLine("Balance changed");
 		}
 		
 		/// <summary>
@@ -209,27 +211,27 @@ namespace ConsoleProjektH1
 					break;
 				case "clear":
 					Console.Clear();
-					Console.WriteLine("Hello, welcome to this list of people - Type \"help\" to " +
-					                  "receive a list of commands");
+					Console.WriteLine(@"Hello, welcome to this list of people - Type ""help"" to receive a list of commands");
 					break;
 				case "quit":
 					Environment.Exit(0);
 					break;
 				case "help":
-					Console.WriteLine("These are the available commands:");
-					Console.WriteLine("\"showall\" - Shows the current list of people");
-					Console.WriteLine("\"addperson\" <name> <age> <balance> - Adds a person to the " +
-					                  "current list of people");
-					Console.WriteLine("\"deleteperson\" <name> - Deletes a person from the current list of people");
-					Console.WriteLine("\"changeperson\" <oldname> <newname> - changes the name of a person from the " +
-					                  "current list of people");
-					Console.WriteLine("\"changeage\" <name> <newage> - changes the age of a person from the " +
-					                  "current list of people");
-					Console.WriteLine("\"changebalance\" <name> <newbalance> - changes the balance of a person " +
-					                  "from the current list of people");
-					Console.WriteLine("\"clear\" - Clears the console");
-					Console.WriteLine("\"quit\" - Quits the console");
-					Console.WriteLine("\"help\" - Shows this list of available commands");
+					Console.WriteLine
+					(
+						@"
+						These are the available commands: 
+						 ""showall"" - Shows the current list of people
+						 ""addperson"" <name> <age> <balance> - Adds a person to the current list of people
+						 ""deleteperson"" <name> - Deletes a person from the current list of people
+						 ""changeperson"" <oldname> <newname> - changes the name of a person from the current list of people
+						 ""changeage"" <name> <newage> - changes the age of a person from the current list of people
+						 ""changebalance"" <name> <newbalance> - changes the balance of a person from the current list of people
+						 ""clear"" - Clears the console
+						 ""quit"" - Quits the console
+						 ""help"" - Shows this list of available commands
+						"
+					);
 					break;
 				default:
 					Console.WriteLine("That is not a command");

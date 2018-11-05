@@ -7,8 +7,7 @@ namespace ConsoleProjektH1
 	{
 		private static void Main(string[] args)
 		{
-			Program prog = new Program();
-			prog.Run();
+			new Program().Run();
 		}
 		
 		/// <summary>
@@ -30,7 +29,9 @@ namespace ConsoleProjektH1
 					List<string> inputList = functions.FilterInput(Console.ReadLine().ToLower());
 					try
 					{
+						Console.Clear();
 						functions.HandleCommands(inputList, functions);
+						Console.WriteLine("Please enter a command" + Environment.NewLine);
 					}
 					catch (Exception e)
 					{
