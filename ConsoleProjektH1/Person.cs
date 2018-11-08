@@ -9,15 +9,15 @@ namespace ConsoleProjektH1
     {
 		public static List<Person> people = new List<Person>();
 
-		public string Name;
-        public int Age;
-        public double Balance;
+		public string name;
+        public int age;
+        public double balance;
         
         public Person(string name, int age, double balance)
         {
-            Name = name;
-            Age = age;
-            Balance = balance;
+            this.name = name;
+            this.age = age;
+            this.balance = balance;
         }
     }
 }

@@ -19,11 +19,11 @@ namespace ConsoleProjektH1
 			
 			foreach (var person in people)
 			{
-				if (person.Name.Length > i)
-					i = person.Name.Length + 1;
+				if (person.name.Length > i)
+					i = person.name.Length + 1;
 
-				Console.WriteLine(person.Name.PadRight(i) + person.Age.ToString().PadRight(i) + 
-				                  person.Balance.ToString().PadRight(i));
+				Console.WriteLine(person.name.PadRight(i) + person.age.ToString().PadRight(i) + 
+				                  person.balance.ToString().PadRight(i));
 			}
 
 			Console.Write(Environment.NewLine);
@@ -52,7 +52,7 @@ namespace ConsoleProjektH1
 		{
 			foreach (var person in people)
 			{
-				if (person.Name == name)
+				if (person.name == name)
 				{
 					people.Remove(person);
 				}
@@ -71,9 +71,9 @@ namespace ConsoleProjektH1
 		{
 			foreach (var person in people)
 			{
-				if (person.Name == oldName)
+				if (person.name == oldName)
 				{
-					person.Name = newName;
+					person.name = newName;
 				}
 			}
 			AppendNames();			
@@ -90,9 +90,9 @@ namespace ConsoleProjektH1
 		{
 			foreach (var person in people)
 			{
-				if (person.Name == name)
+				if (person.name == name)
 				{
-					person.Age = age;
+					person.age = age;
 				}
 			}
 			AppendNames();			
@@ -109,9 +109,9 @@ namespace ConsoleProjektH1
 		{
 			foreach (var person in people)
 			{
-				if (person.Name == name)
+				if (person.name == name)
 				{
-					person.Balance = balance;
+					person.balance = balance;
 				}
 			}
 			AppendNames();			
@@ -129,7 +129,7 @@ namespace ConsoleProjektH1
 			foreach (var person in people)
 			{
 				File.AppendAllText(Environment.CurrentDirectory + "\\NameList.txt", 
-					Capitalize(person.Name) + "," + person.Age + "," +  person.Balance + Environment.NewLine);
+					Capitalize(person.name) + "," + person.age + "," +  person.balance + Environment.NewLine);
 			}
 		}
 
