@@ -31,7 +31,7 @@ namespace ConsoleProjektH1
 					{
 						Console.Clear();
 						functions.HandleCommands(inputList, functions);
-						Console.WriteLine("Please enter a command" + Environment.NewLine);
+						Console.WriteLine("Please enter a command");
 					}
 					catch (Exception e)
 					{
