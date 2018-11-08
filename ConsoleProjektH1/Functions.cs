@@ -50,8 +50,9 @@ namespace ConsoleProjektH1
 		/// <param name="name"></param>
 		private void DeletePerson(string name)
 		{
-			foreach (var person in people)
+			for (int i = 0; i < people.Count; i++)
 			{
+				Person person = people[i];
 				if (person.name == name)
 				{
 					people.Remove(person);
@@ -69,8 +70,9 @@ namespace ConsoleProjektH1
 		/// <param name="newName"></param>
 		private void ChangeName(string oldName, string newName)
 		{
-			foreach (var person in people)
+			for (int i = 0; i < people.Count; i++)
 			{
+				Person person = people[i];
 				if (person.name == oldName)
 				{
 					person.name = newName;
@@ -88,8 +90,9 @@ namespace ConsoleProjektH1
 		/// <param name="age"></param>
 		private void ChangeAge(string name, int age)
 		{
-			foreach (var person in people)
+			for (int i = 0; i < people.Count; i++)
 			{
+				Person person = people[i];
 				if (person.name == name)
 				{
 					person.age = age;
@@ -107,8 +110,9 @@ namespace ConsoleProjektH1
 		/// <param name="balance"></param>
 		private void ChangeBalance(string name, double balance)
 		{
-			foreach (var person in people)
+			for (int i = 0; i < people.Count; i++)
 			{
+				Person person = people[i];
 				if (person.name == name)
 				{
 					person.balance = balance;
@@ -126,10 +130,12 @@ namespace ConsoleProjektH1
 		{
 			File.WriteAllText(Environment.CurrentDirectory + "\\NameList.txt", "");
 
-			foreach (var person in people)
+			for (int i = 0; i < people.Count; i++)
 			{
-				File.AppendAllText(Environment.CurrentDirectory + "\\NameList.txt", 
-					Capitalize(person.name) + "," + person.age + "," +  person.balance + Environment.NewLine);
+				Person person = people[i];
+				string appendText = Capitalize(person.name) + "," + person.age + "," + person.balance + Environment.NewLine;
+
+				File.AppendAllText(Environment.CurrentDirectory + "\\NameList.txt", appendText);
 			}
 		}
 
@@ -169,9 +175,10 @@ namespace ConsoleProjektH1
 		/// <param name="people"></param>
 		public void ReadFile()
 		{
-			foreach (var person in File.ReadAllLines(Environment.CurrentDirectory + "\\NameList.txt"))
+			string[] array = File.ReadAllLines(Environment.CurrentDirectory + "\\NameList.txt");
+			for (int i = 0; i < array.Length; i++)
 			{
-				var splitUp = person.Split(',');
+				var splitUp = array[i].Split(',');
 
 				string name = Capitalize(splitUp[0]);
 				int age = int.Parse(splitUp[1]);
