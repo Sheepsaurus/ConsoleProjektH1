@@ -197,15 +197,16 @@ namespace ConsoleProjektH1
 					Environment.Exit(0);
 					break;
 				case "help":
-					Console.WriteLine("These are the available commands:  \n\n" +
-										" \"showall\" - Shows the current list of people\n" + 
-										" \"addperson\" <name> <age> <balance> - Adds a person to the current list of people\n" + 
-										" \"deleteperson\" <name> - Deletes a person from the current list of people\n" +
-										" \"changeperson\" <oldname> <newname> - changes the name of a person from the current list of people\n" + 
-										" \"changeage\" <name> <newage> - changes the age of a person from the current list of people\n" +
-										" \"changebalance\" <name> <newbalance> - changes the balance of a person from the current list of people\n" + 
-										" \"quit\" - Quits the console\n" + 
-										" \"help\" - Shows this list of available commands");
+					Console.WriteLine(
+						"These are the available commands:  \n\n" +
+						" \"showall\" - Shows the current list of people\n" + 
+						" \"addperson\" <name> <age> <balance> - Adds a person to the current list of people\n" + 
+						" \"deleteperson\" <name> - Deletes a person from the current list of people\n" +
+						" \"changeperson\" <oldname> <newname> - changes the name of a person from the current list of people\n" + 
+						" \"changeage\" <name> <newage> - changes the age of a person from the current list of people\n" +
+						" \"changebalance\" <name> <newbalance> - changes the balance of a person from the current list of people\n" + 
+						" \"quit\" - Quits the console\n" + 
+						" \"help\" - Shows this list of available commands");
 					break;
 				default:
 					Console.WriteLine("That is not a command");
