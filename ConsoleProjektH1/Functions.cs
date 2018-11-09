@@ -12,7 +12,7 @@ namespace ConsoleProjektH1
 		/// </summary>
 		private void ShowAll()
 		{
-			int i = 20;
+			int i = 15;
 			Console.WriteLine("Name".PadRight(i) + "Age".PadRight(i) + 
 			                  "Balance".PadRight(i));
 			
@@ -149,17 +149,16 @@ namespace ConsoleProjektH1
 		/// </summary>
 		public void ReadFile()
 		{
-			string[] array = File.ReadAllLines(Environment.CurrentDirectory + "\\NameList.txt");
-			
-			for (int i = 0; i < array.Length; i++)
+			foreach (var line in File.ReadAllLines(Environment.CurrentDirectory + "\\NameList.txt"))
 			{
-				var splitUp = array[i].Split(',');
+				string[] splitUp = line.Split(',');
 
-				string name = Capitalize(splitUp[0]);
-				int age = int.Parse(splitUp[1]);
-				double balance = double.Parse(splitUp[2]);
-
-				People.people.Add(new Person(name, age, balance));
+				People.people.Add(new Person
+				(
+					Capitalize(splitUp[0]), 
+					int.Parse(splitUp[1]), 
+					double.Parse(splitUp[2])
+				));
 			}
 		}
 		
