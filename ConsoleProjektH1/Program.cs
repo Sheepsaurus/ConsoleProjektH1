@@ -19,8 +19,8 @@ namespace ConsoleProjektH1
 			{
 				Functions functions = new Functions();
 				functions.ReadFile();
-				Console.WriteLine("Hello, welcome to this list of people - Type \"help\" to " +
-				                  "receive a list of commands");
+				Console.WriteLine("Hello, welcome to this list of people - Type \"help\" to receive a list of commands");
+
 				while (true)
 				{
 					Console.Write(":>");
@@ -29,7 +29,7 @@ namespace ConsoleProjektH1
 					{
 						Console.Clear();
 						functions.HandleCommands(inputList, functions);
-						Console.WriteLine("Please enter a command");
+						Console.WriteLine("\nPlease enter a command");
 					}
 					catch (Exception e)
 					{

@@ -37,7 +37,7 @@ namespace ConsoleProjektH1
 		{
 			People.people.Add(new Person(name, age, balance));
 			AppendNames();
-			Console.WriteLine("Person added");
+			Console.WriteLine($"{name} was added");
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace ConsoleProjektH1
 			for (int i = 0; i < People.people.Count; i++)
 			{ if (People.people[i].Name == name) { People.people.Remove(People.people[i]); } }
 			AppendNames();
-			Console.WriteLine("Person deleted");
+			Console.WriteLine($"{name} was deleted");
 		}
 		
 		/// <summary>
@@ -62,7 +62,7 @@ namespace ConsoleProjektH1
 			for (int i = 0; i < People.people.Count; i++)
 			{ if (People.people[i].Name == oldName) { People.people[i].Name = newName; } }
 			AppendNames();
-			Console.WriteLine("Person changed");
+			Console.WriteLine($"{oldName}'s name was changed to {newName}");
 		}
 
 		/// <summary>
@@ -75,7 +75,7 @@ namespace ConsoleProjektH1
 			for (int i = 0; i < People.people.Count; i++)
 			{ if (People.people[i].Name == name) { People.people[i].Age = age; } }
 			AppendNames();			
-			Console.WriteLine("Age changed");
+			Console.WriteLine($"{name}'s age was changed to {age}");
 		}
 
 		/// <summary>
@@ -88,7 +88,7 @@ namespace ConsoleProjektH1
 			for (int i = 0; i < People.people.Count; i++)
 			{ if (People.people[i].Name == name) { People.people[i].Balance = balance; } }
 			AppendNames();			
-			Console.WriteLine("Balance changed");
+			Console.WriteLine($"{name}'s balance was changed to {balance}");
 		}
 		
 		/// <summary>
@@ -197,21 +197,15 @@ namespace ConsoleProjektH1
 					Environment.Exit(0);
 					break;
 				case "help":
-					Console.WriteLine
-					(
-						@"
-						These are the available commands: 
-						 ""showall"" - Shows the current list of people
-						 ""addperson"" <name> <age> <balance> - Adds a person to the current list of people
-						 ""deleteperson"" <name> - Deletes a person from the current list of people
-						 ""changeperson"" <oldname> <newname> - changes the name of a person from the current list of people
-						 ""changeage"" <name> <newage> - changes the age of a person from the current list of people
-						 ""changebalance"" <name> <newbalance> - changes the balance of a person from the current list of people
-						 ""clear"" - Clears the console
-						 ""quit"" - Quits the console
-						 ""help"" - Shows this list of available commands
-						"
-					);
+					Console.WriteLine("These are the available commands:  \n\n" +
+										" \"showall\" - Shows the current list of people\n" + 
+										" \"addperson\" <name> <age> <balance> - Adds a person to the current list of people\n" + 
+										" \"deleteperson\" <name> - Deletes a person from the current list of people\n" +
+										" \"changeperson\" <oldname> <newname> - changes the name of a person from the current list of people\n" + 
+										" \"changeage\" <name> <newage> - changes the age of a person from the current list of people\n" +
+										" \"changebalance\" <name> <newbalance> - changes the balance of a person from the current list of people\n" + 
+										" \"quit\" - Quits the console\n" + 
+										" \"help\" - Shows this list of available commands");
 					break;
 				default:
 					Console.WriteLine("That is not a command");
