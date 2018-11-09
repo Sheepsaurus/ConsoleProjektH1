@@ -5,7 +5,7 @@ namespace ConsoleProjektH1
 {
 	class Program
 	{
-		private static void Main(string[] args)
+		private static void Main()
 		{
 			new Program().Run();
 		}
@@ -13,8 +13,6 @@ namespace ConsoleProjektH1
 		/// <summary>
 		/// Handles user interface/experience and catches user errors
 		/// </summary>
-		/// <param name="functions"></param>
-		/// <param name="people"></param>
 		private void Run()
 		{
 			try
@@ -26,7 +24,7 @@ namespace ConsoleProjektH1
 				while (true)
 				{
 					Console.Write(":>");
-					List<string> inputList = functions.FilterInput(Console.ReadLine().ToLower());
+					List<string> inputList = functions.FilterInput(Console.ReadLine()?.ToLower());
 					try
 					{
 						Console.Clear();

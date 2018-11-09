@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using static ConsoleProjektH1.Person;
 
 namespace ConsoleProjektH1
 {
@@ -10,35 +10,32 @@ namespace ConsoleProjektH1
         /// <summary>
 		/// Shows the entire current list, fetched from the file
 		/// </summary>
-		/// <param name="people"></param>
 		private void ShowAll()
 		{
 			int i = 20;
 			Console.WriteLine("Name".PadRight(i) + "Age".PadRight(i) + 
 			                  "Balance".PadRight(i));
 			
-			foreach (var person in people)
+			foreach (var person in People.people)
 			{
-				if (person.name.Length > i)
-					i = person.name.Length + 1;
+				if (person.Name.Length > i)
+					i = person.Name.Length + 1;
 
-				Console.WriteLine(person.name.PadRight(i) + person.age.ToString().PadRight(i) + 
-				                  person.balance.ToString().PadRight(i));
+				Console.WriteLine(person.Name.PadRight(i) + person.Age.ToString().PadRight(i) + 
+				                  person.Balance.ToString(CultureInfo.InvariantCulture).PadRight(i));
 			}
-
 			Console.Write(Environment.NewLine);
 		}
 
 		/// <summary>
 		/// Adds a person at the end of the list, then appends the person to the .txt-file
 		/// </summary>
-		/// <param name="people"></param>
 		/// <param name="name"></param>
 		/// <param name="age"></param>
 		/// <param name="balance"></param>
 		private void AddPerson(string name, int age, double balance)
 		{
-			people.Add(new Person(name, age, balance));
+			People.people.Add(new Person(name, age, balance));
 			AppendNames();
 			Console.WriteLine("Person added");
 		}
@@ -46,18 +43,11 @@ namespace ConsoleProjektH1
 		/// <summary>
 		/// Removes a person with a specific name, then appends to the .txt-file
 		/// </summary>
-		/// <param name="people"></param>
 		/// <param name="name"></param>
 		private void DeletePerson(string name)
 		{
-			for (int i = 0; i < people.Count; i++)
-			{
-				Person person = people[i];
-				if (person.name == name)
-				{
-					people.Remove(person);
-				}
-			}
+			for (int i = 0; i < People.people.Count; i++)
+			{ if (People.people[i].Name == name) { People.people.Remove(People.people[i]); } }
 			AppendNames();
 			Console.WriteLine("Person deleted");
 		}
@@ -65,39 +55,25 @@ namespace ConsoleProjektH1
 		/// <summary>
 		/// Changes the person with a specific name, to another name, then appends to the .txt-file
 		/// </summary>
-		/// <param name="people"></param>
 		/// <param name="oldName"></param>
 		/// <param name="newName"></param>
 		private void ChangeName(string oldName, string newName)
 		{
-			for (int i = 0; i < people.Count; i++)
-			{
-				Person person = people[i];
-				if (person.name == oldName)
-				{
-					person.name = newName;
-				}
-			}
-			AppendNames();			
+			for (int i = 0; i < People.people.Count; i++)
+			{ if (People.people[i].Name == oldName) { People.people[i].Name = newName; } }
+			AppendNames();
 			Console.WriteLine("Person changed");
 		}
 
 		/// <summary>
 		/// Changes the person with a specific name, to a different age, then appends to the .txt-file
 		/// </summary>
-		/// <param name="people"></param>
 		/// <param name="name"></param>
 		/// <param name="age"></param>
 		private void ChangeAge(string name, int age)
 		{
-			for (int i = 0; i < people.Count; i++)
-			{
-				Person person = people[i];
-				if (person.name == name)
-				{
-					person.age = age;
-				}
-			}
+			for (int i = 0; i < People.people.Count; i++)
+			{ if (People.people[i].Name == name) { People.people[i].Age = age; } }
 			AppendNames();			
 			Console.WriteLine("Age changed");
 		}
@@ -105,19 +81,12 @@ namespace ConsoleProjektH1
 		/// <summary>
 		/// Changes the person with a specific name, to a different balance
 		/// </summary>
-		/// <param name="people"></param>
 		/// <param name="name"></param>
 		/// <param name="balance"></param>
 		private void ChangeBalance(string name, double balance)
 		{
-			for (int i = 0; i < people.Count; i++)
-			{
-				Person person = people[i];
-				if (person.name == name)
-				{
-					person.balance = balance;
-				}
-			}
+			for (int i = 0; i < People.people.Count; i++)
+			{ if (People.people[i].Name == name) { People.people[i].Balance = balance; } }
 			AppendNames();			
 			Console.WriteLine("Balance changed");
 		}
@@ -125,15 +94,21 @@ namespace ConsoleProjektH1
 		/// <summary>
 		/// Appends the names from the list of people to the .txt-file, separated by ',' and '\n'
 		/// </summary>
-		/// <param name="people"></param>
 		private void AppendNames()
 		{
 			File.WriteAllText(Environment.CurrentDirectory + "\\NameList.txt", "");
 
-			for (int i = 0; i < people.Count; i++)
-			{
-				Person person = people[i];
-				string appendText = Capitalize(person.name) + "," + person.age + "," + person.balance + Environment.NewLine;
+			for (int i = 0; i < People.people.Count; i++) 
+			{ 
+				Person p = new Person
+				(
+					Capitalize
+					(People.people[i].Name),
+					People.people[i].Age,
+					People.people[i].Balance
+				);
+				
+				string appendText = p.Name + "," + p.Age + "," + p.Balance + Environment.NewLine;
 
 				File.AppendAllText(Environment.CurrentDirectory + "\\NameList.txt", appendText);
 			}
@@ -172,10 +147,10 @@ namespace ConsoleProjektH1
 		/// A method that can read the NameList file, and split up the containing lines by ',' to retrieve the
 		/// information for use
 		/// </summary>
-		/// <param name="people"></param>
 		public void ReadFile()
 		{
 			string[] array = File.ReadAllLines(Environment.CurrentDirectory + "\\NameList.txt");
+			
 			for (int i = 0; i < array.Length; i++)
 			{
 				var splitUp = array[i].Split(',');
@@ -184,14 +159,13 @@ namespace ConsoleProjektH1
 				int age = int.Parse(splitUp[1]);
 				double balance = double.Parse(splitUp[2]);
 
-				people.Add(new Person(name, age, balance));
+				People.people.Add(new Person(name, age, balance));
 			}
 		}
 		
 		/// <summary>
 		/// A method containing a switch, that handles the entire collection of commands.
 		/// </summary>
-		/// <param name="people"></param>
 		/// <param name="inputList"></param>
 		/// <param name="functions"></param>
 		public void HandleCommands(List<string> inputList, Functions functions)
