@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ConsoleProjektH1
 {
@@ -14,6 +15,11 @@ namespace ConsoleProjektH1
 		{
 			try
 			{
+				if (!File.Exists(Environment.CurrentDirectory + "\\NameList.txt"))
+				{
+					File.WriteAllText(Environment.CurrentDirectory + "\\NameList.txt", "");
+				}				
+
 				Functions functions = new Functions();
 				functions.ReadFile();
 				Console.WriteLine("Hello, welcome to this list of people - Type \"help\" to receive a list of commands");
