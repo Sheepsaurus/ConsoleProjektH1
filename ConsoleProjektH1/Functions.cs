@@ -21,80 +21,16 @@ namespace ConsoleProjektH1
 				if (person.Name.Length > i)
 					i = person.Name.Length + 1;
 
-				Console.WriteLine(person.Name.PadRight(i) + person.Age.ToString().PadRight(i) + 
-				                  person.Balance.ToString(CultureInfo.InvariantCulture).PadRight(i));
+				Console.WriteLine(person.Name.PadRight(i) + person.Age.ToString().PadRight(i) +
+								  person.Balance.ToString().PadRight(i));
 			}
 			Console.Write(Environment.NewLine);
-		}
-
-		/// <summary>
-		/// Adds a person at the end of the list, then appends the person to the .txt-file
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="age"></param>
-		/// <param name="balance"></param>
-		private void AddPerson(string name, int age, double balance)
-		{
-			People.people.Add(new Person(name, age, balance));
-			AppendNames();
-			Console.WriteLine($"{name} was added");
-		}
-
-		/// <summary>
-		/// Removes a person with a specific name, then appends to the .txt-file
-		/// </summary>
-		/// <param name="name"></param>
-		private void DeletePerson(string name)
-		{
-			for (int i = 0; i < People.people.Count; i++)
-			{ if (People.people[i].Name == name) { People.people.Remove(People.people[i]); } }
-			AppendNames();
-			Console.WriteLine($"{name} was deleted");
-		}
-		
-		/// <summary>
-		/// Changes the person with a specific name, to another name, then appends to the .txt-file
-		/// </summary>
-		/// <param name="oldName"></param>
-		/// <param name="newName"></param>
-		private void ChangeName(string oldName, string newName)
-		{
-			for (int i = 0; i < People.people.Count; i++)
-			{ if (People.people[i].Name == oldName) { People.people[i].Name = newName; } }
-			AppendNames();
-			Console.WriteLine($"{oldName}'s name was changed to {newName}");
-		}
-
-		/// <summary>
-		/// Changes the person with a specific name, to a different age, then appends to the .txt-file
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="age"></param>
-		private void ChangeAge(string name, int age)
-		{
-			for (int i = 0; i < People.people.Count; i++)
-			{ if (People.people[i].Name == name) { People.people[i].Age = age; } }
-			AppendNames();			
-			Console.WriteLine($"{name}'s age was changed to {age}");
-		}
-
-		/// <summary>
-		/// Changes the person with a specific name, to a different balance
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="balance"></param>
-		private void ChangeBalance(string name, double balance)
-		{
-			for (int i = 0; i < People.people.Count; i++)
-			{ if (People.people[i].Name == name) { People.people[i].Balance = balance; } }
-			AppendNames();			
-			Console.WriteLine($"{name}'s balance was changed to {balance}");
-		}
+		}		
 		
 		/// <summary>
 		/// Appends the names from the list of people to the .txt-file, separated by ',' and '\n'
 		/// </summary>
-		private void AppendNames()
+		public void AppendNames()
 		{
 			File.WriteAllText(Environment.CurrentDirectory + "\\NameList.txt", "");
 
@@ -104,13 +40,12 @@ namespace ConsoleProjektH1
 				(
 					Capitalize
 					(People.people[i].Name),
-					People.people[i].Age,
-					People.people[i].Balance
+					 People.people[i].Age,
+					 People.people[i].Balance
 				);
-				
-				string appendText = p.Name + "," + p.Age + "," + p.Balance + Environment.NewLine;
 
-				File.AppendAllText(Environment.CurrentDirectory + "\\NameList.txt", appendText);
+				File.AppendAllText(Environment.CurrentDirectory + "\\NameList.txt", 
+					p.Name + "," + p.Age + "," + p.Balance + Environment.NewLine);
 			}
 		}
 
@@ -119,7 +54,7 @@ namespace ConsoleProjektH1
 		/// </summary>
 		/// <param name="word"></param>
 		/// <returns>A string with the first letter of the string, capitalized</returns>
-		private string Capitalize(string word)
+		public string Capitalize(string word)
 		{
 			if (word[0] != char.ToUpper(word[0]))
 			{
@@ -139,10 +74,8 @@ namespace ConsoleProjektH1
 		/// <param name="input"></param>
 		/// <returns>Returns the input, split up by whitespace</returns>
 		public List<string> FilterInput(string input)
-		{
-			return new List<string>(input.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries));
-		}
-		
+			=> new List<string>(input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+
 		/// <summary>
 		/// A method that can read the NameList file, and split up the containing lines by ',' to retrieve the
 		/// information for use
@@ -167,31 +100,66 @@ namespace ConsoleProjektH1
 		/// </summary>
 		/// <param name="inputList"></param>
 		/// <param name="functions"></param>
-		public void HandleCommands(List<string> inputList, Functions functions)
+		public void HandleCommands(List<string> inputList)
 		{
+			People p = new People();
+
+			string firstName = "";
+			string secondName = "";
+			int age = 0;
+			double balance = 0;
+
+			if (inputList.Count == 4)
+			{
+				firstName = inputList[1] != null ? Capitalize(inputList[1]) : "";
+				secondName = inputList[2] != null ? Capitalize(inputList[2]) : "";
+				age = inputList[2] != null ? int.Parse(inputList[2]) : 0;
+				balance = inputList[3] != null ? double.Parse(inputList[3]) : 0;
+			}
+			else if (inputList.Count == 3)
+			{
+				firstName = inputList[1] != null ? Capitalize(inputList[1]) : "";
+				secondName = inputList[2] != null ? Capitalize(inputList[2]) : "";
+				age = inputList[2] != null ? int.Parse(inputList[2]) : 0;
+			}
+			else if (inputList.Count == 2)
+			{
+				firstName = inputList[1] != null ? Capitalize(inputList[1]) : "";
+			}			
+
 			switch (inputList[0])
 			{
 				case "showall":
-					functions.ShowAll();
+					ShowAll();
 					break;
 				case "addperson":
-					functions.AddPerson(Capitalize(inputList[1]), int.Parse(inputList[2]), double.Parse(inputList[3]));
+					p.AddPerson(firstName, age, balance);
+					AppendNames();
+					Console.WriteLine($"{firstName} was added");
 					break;
 				case "deleteperson":
-					functions.DeletePerson(Capitalize(inputList[1]));
+					p.DeletePerson(firstName);
+					AppendNames();
+					Console.WriteLine($"{firstName} was deleted");
 					break;
 				case "changeperson":
-					functions.ChangeName(Capitalize(inputList[1]), Capitalize(inputList[2]));
+					p.ChangeName(firstName, secondName);
+					AppendNames();
+					Console.WriteLine($"{firstName}'s name was changed to {secondName}");
 					break;
 				case "changeage":
-					functions.ChangeAge(Capitalize(inputList[1]), int.Parse(inputList[2]));
+					p.ChangeAge(firstName, age);
+					AppendNames();
+					Console.WriteLine($"{firstName}'s age was changed to {age}");
 					break;
 				case "changebalance":
-					functions.ChangeBalance(Capitalize(inputList[1]), double.Parse(inputList[2]));
+					p.ChangeBalance(firstName, balance);
+					AppendNames();
+					Console.WriteLine($"{firstName}'s balance was changed to {balance}");
 					break;
 				case "clear":
 					Console.Clear();
-					Console.WriteLine(@"Hello, welcome to this list of people - Type ""help"" to receive a list of commands");
+					Console.WriteLine("Hello, welcome to this list of people - Type \"help\" to receive a list of commands");
 					break;
 				case "quit":
 					Environment.Exit(0);

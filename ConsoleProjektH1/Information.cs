@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.Linq;
 
 namespace ConsoleProjektH1
 {
@@ -8,67 +9,36 @@ namespace ConsoleProjektH1
     /// </summary>
     public class Person
     {
-	    
-		private string name;
-		private int age;
-		private double balance;
-
-	    //Semi-Manual-Property
-		public string Name { get => name; set => name = value; }
-		public int Age { get => age; set => age = value; }
-		public double Balance { get => balance; set => balance = value; }
-		
-	    /*
-	     
-	    //Auto-Property
 		public string Name { get; set; }
-		public int age { get; set; }
-		public double balance { get; set; }
+		public int Age { get; set; }
+		public double Balance { get; set; } 
 
-	    //Manual-Property
-	    public string GetName()
-	    {
-		    return name;
-	    }
-	    
-	    public void SetName(string newName)
-	    {
-		    name = newName;
-	    }
-	    
-	    public int GetAge()
-	    {
-		    return age;
-	    }
-	    
-	    public void SetAge(int newAge)
-	    {
-		    age = newAge;
-	    }
-	    
-	    public double GetBalance()
-	    {
-		    return balance;
-	    }
-	    
-	    public void SetBalance(double newBalance)
-	    {
-		    balance = newBalance;
-	    }
-	    
-	    */
-	    
 		public Person(string name, int age, double balance)
         {
-            this.name = name;
-            this.age = age;
-            this.balance = balance;
+            Name = name;
+            Age = age;
+            Balance = balance;
         }
-
 	}
 
-	public static class People
+	public class People
 	{
 		public static List<Person> people = new List<Person>();
+
+		public void AddPerson(string name, int age, double balance) 
+			=> people.Add(new Person(name, age, balance));
+
+		public void DeletePerson(string name) 
+			=> people.Remove(people.FirstOrDefault(x => x.Name == name));
+
+		public void ChangeName(string oldName, string newName) 
+			=> people.FirstOrDefault(x => x.Name == oldName).Name = newName;
+		
+		public void ChangeAge(string name, int age) 
+			=> people.FirstOrDefault(x => x.Name == name).Age = age;
+		
+		public void ChangeBalance(string name, double balance) 
+			=> people.FirstOrDefault(x => x.Name == name).Balance = balance;
+
 	}
 }

@@ -5,11 +5,8 @@ namespace ConsoleProjektH1
 {
 	class Program
 	{
-		private static void Main()
-		{
-			new Program().Run();
-		}
-		
+		private static void Main() => new Program().Run();
+
 		/// <summary>
 		/// Handles user interface/experience and catches user errors
 		/// </summary>
@@ -28,7 +25,7 @@ namespace ConsoleProjektH1
 					try
 					{
 						Console.Clear();
-						functions.HandleCommands(inputList, functions);
+						functions.HandleCommands(inputList);
 						Console.WriteLine("\nPlease enter a command");
 					}
 					catch (Exception e)
@@ -37,12 +34,11 @@ namespace ConsoleProjektH1
 						    inputList[0] == "changebalance" || inputList[0] == "deleteperson" ||
 						    inputList[0] == "addperson")
 						{
-							Console.WriteLine("That person is not on the list, or you entered an incorrect value");
+							Console.WriteLine("You entered a command." + e);
 						}
 						else
 						{
-							Console.WriteLine("Please enter a name");
-							Console.WriteLine(e);
+							Console.WriteLine("Please enter a command" + e);
 						}
 					}
 				}
