@@ -119,7 +119,11 @@ namespace ConsoleProjektH1
 			{
 				firstName = inputList[1] != null ? Capitalize(inputList[1]) : "";
 				secondName = inputList[2] != null ? Capitalize(inputList[2]) : "";
-				age = inputList[2] != null ? int.Parse(inputList[2]) : 0;
+				
+				if (int.TryParse(inputList[2], out int result))
+				{
+					age = result;
+				}				
 			}
 			else if (inputList.Count == 2)
 			{
