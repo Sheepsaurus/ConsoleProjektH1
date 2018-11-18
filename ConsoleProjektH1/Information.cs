@@ -22,6 +22,22 @@ namespace ConsoleProjektH1
 	public class People
 	{
 		public static List<Person> people = new List<Person>();
+		public void ReadFile()
+		{
+			if (!File.Exists(Functions.Path)) { File.WriteAllText(Functions.Path, ""); }
+
+			File.ReadAllLines(Functions.Path).ToList().ForEach(x =>
+			{
+				string[] splitUp = x.Split(',');
+
+				People.people.Add(new Person
+				(
+					Functions.Capitalize(splitUp[0]),
+					int.Parse(splitUp[1]),
+					double.Parse(splitUp[2])
+				));
+			});
+		}
 
 		public void ShowAll()
 		{
@@ -29,7 +45,7 @@ namespace ConsoleProjektH1
 			Console.WriteLine("Name".PadRight(i) + "Age".PadRight(i) +
 							  "Balance".PadRight(i));
 
-			People.people.ForEach(person =>
+			people.ForEach(person =>
 			{
 				if (person.Name.Length > i) i = person.Name.Length + 1;
 				Console.WriteLine(person.Name.PadRight(i) + person.Age.ToString().PadRight(i) +
@@ -50,7 +66,7 @@ namespace ConsoleProjektH1
 			});
 		}
 
-		public static int AddPerson(AddOptions o)
+		public static int AddPerson(AddPerson o)
 		{
 			people.Add(new Person(Functions.Capitalize(o.Name), o.Age, o.Balance));
 			Console.WriteLine($"{o.Name} was added");
@@ -58,7 +74,7 @@ namespace ConsoleProjektH1
 			return 1;
 		}
 
-		public static int DeletePerson(DeleteOptions o)
+		public static int DeletePerson(DeletePerson o)
 		{
 			people.Remove(people.FirstOrDefault(x => x.Name == Functions.Capitalize(o.Name)));
 			Console.WriteLine($"{o.Name} was deleted");

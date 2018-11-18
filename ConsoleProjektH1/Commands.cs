@@ -4,23 +4,19 @@ using CommandLine;
 
 namespace ConsoleProjektH1
 {
-	class Commands
+	class CommandMethods
 	{
-		public static int MainMethod (List<string> inputList)
-		{
-			return Parser.Default.ParseArguments<AddOptions, DeleteOptions, ChangeName, ChangeAge, ChangeBalance, Quit, ShowAll>(inputList).MapResult
-			(
-				(AddOptions opts) => People.AddPerson(opts),
-				(DeleteOptions opts) => People.DeletePerson(opts),
-				(ChangeName opts) => People.ChangeName(opts),
-				(ChangeAge opts) => People.ChangeAge(opts),
-				(ChangeBalance opts) => People.ChangeBalance(opts),
-				(Quit opts) => Quit(opts),
-				(ShowAll opts) => ShowAll(opts),
-				errs => 1
-			);
-		}
-		
+		public static int MainMethod(List<string> inputList) => 
+			Parser.Default.ParseArguments<AddPerson, DeletePerson, ChangeName, ChangeAge, ChangeBalance, Quit, ShowAll>
+			(inputList).MapResult((AddPerson opts)	   => People.AddPerson(opts), 
+								  (DeletePerson opts)  => People.DeletePerson(opts), 
+								  (ChangeName opts)    => People.ChangeName(opts), 
+								  (ChangeAge opts)     => People.ChangeAge(opts), 
+								  (ChangeBalance opts) => People.ChangeBalance(opts), 
+								  (Quit opts)          => Quit(opts), 
+								  (ShowAll opts)       => ShowAll(opts), 
+														  errs => 1);
+
 		static int Quit(Quit o)
 		{
 			Environment.Exit(0);
@@ -34,7 +30,7 @@ namespace ConsoleProjektH1
 	}
 
 	[Verb("addperson", HelpText = "Add a person - Syntax: addperson -n <Name> -a <Age> -b <Balance>")]
-	public class AddOptions
+	public class AddPerson
 	{
 		[Option('n', "name", Required = true, HelpText = "Name of the person")]
 		public string Name { get; set; }
@@ -45,7 +41,7 @@ namespace ConsoleProjektH1
 	}
 
 	[Verb("deleteperson", HelpText = "Delete a person - Syntax: deleteperson -n <Name>")]
-	public class DeleteOptions
+	public class DeletePerson
 	{
 		[Option('n', "name", Required = true, HelpText = "Name of the person")]
 		public string Name { get; set; }
@@ -81,14 +77,10 @@ namespace ConsoleProjektH1
 	[Verb("quit", HelpText = "quit the application - Syntax: quit")]
 	public class Quit
 	{
-		[Option('q', "quit", Required = false, HelpText = "Command to quit")]
-		public bool Used { get; set; }
 	}
 
 	[Verb("showall", HelpText = "show the entire list - Syntax: showall")]
 	public class ShowAll
 	{
-		[Option('s', "showall", Required = false, HelpText = "Command to show all")]
-		public bool Used { get; set; }
 	}
 }
