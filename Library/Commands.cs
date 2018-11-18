@@ -1,30 +1,31 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CommandLine;
 
-namespace ConsoleProjektH1
+namespace Library
 {
-	class CommandMethods
+	public static class CommandMethods
 	{
-		public static int MainMethod(List<string> inputList) => 
+		public static void MainMethod(List<string> inputList) => 
 			Parser.Default.ParseArguments<AddPerson, DeletePerson, ChangeName, ChangeAge, ChangeBalance, Quit, ShowAll>
 			(inputList).MapResult((AddPerson opts)	   => People.AddPerson(opts), 
 								  (DeletePerson opts)  => People.DeletePerson(opts), 
 								  (ChangeName opts)    => People.ChangeName(opts), 
 								  (ChangeAge opts)     => People.ChangeAge(opts), 
 								  (ChangeBalance opts) => People.ChangeBalance(opts), 
-								  (Quit opts)          => Quit(opts), 
-								  (ShowAll opts)       => ShowAll(opts), 
+								  (Quit opts)          => Quit(), 
+								  (ShowAll opts)       => ShowAll(), 
 														  errs => 1);
 
-		static int Quit(Quit o)
+		private static int Quit()
 		{
 			Environment.Exit(0);
 			return 1;
 		}
-		static int ShowAll(ShowAll o)
+
+		private static int ShowAll()
 		{
-			new People().ShowAll();
+			People.ShowAll();
 			return 1;
 		}	
 	}

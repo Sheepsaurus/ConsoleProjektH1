@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using Library;
 using static System.Console;
 
 namespace ConsoleProjektH1
@@ -14,13 +13,14 @@ namespace ConsoleProjektH1
 		}
 
 		private static void RunInputLogic()
-		{			
+		{
+			People.ReadFile();
 			while (true)
 			{
 				WriteLine("Please enter a command");
-				string[] result = ReadLine()?.ToLower().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+				string[] result = ReadLine()?.ToLower().Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
 				Clear();
-				CommandMethods.MainMethod(new List<string>(result));
+				CommandMethods.MainMethod(new List<string>(result ?? throw new InvalidOperationException()));
 			}
 		}
 	}
